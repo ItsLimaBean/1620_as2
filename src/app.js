@@ -8,6 +8,7 @@ const notes = [
 
 const newNoteButton = document.querySelector(".fa-solid.fa-circle-plus")
 const createNoteArea = document.querySelector(".create-note-area")
+const notesList = document.querySelector(".notes-list")
 
 const newNoteArea = `
 <div class="new-note-area">
@@ -26,6 +27,10 @@ function addNewNote(event) {
   createNoteArea.insertAdjacentHTML("beforeend", newNoteArea)
 }
 
+function addNoteToSide(note) {
+  notesList.insertAdjacentHTML("beforeend", `<li>${note.title}</li>`)
+}
+
 function saveNote(textinput) {
   const splitText = textinput.split("\n")
   const title = splitText[0]
@@ -38,6 +43,7 @@ function saveNote(textinput) {
   }
   notes.push(noteObj)
 
+  addNoteToSide(noteObj)
   removeNewNoteArea()
 }
 
@@ -56,3 +62,6 @@ function createNoteAreaClick(event) {
 
 newNoteButton.addEventListener("click", addNewNote)
 createNoteArea.addEventListener("click", createNoteAreaClick)
+
+// This is to insert the example note
+addNoteToSide(notes[0])
