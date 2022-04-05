@@ -134,3 +134,12 @@ footer p {
   color: var(--text);
   font-size: var(--lrg-txt);
 }
+
+.new-note-area {
+  display: flex;
+  flex-direction: column;
+}
+
+.new-note-area > div {
+  flex-direction: row;
+}
