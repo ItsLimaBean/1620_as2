@@ -34,15 +34,21 @@ function saveNote(textinput) {
   const noteObj = {
     title: title,
     content: content,
-    id: notes[notes.length - 1].id + 1
+    id: notes[notes.length -1].id + 1
   }
   notes.push(noteObj)
+
+  removeNewNoteArea()
+}
+
+function removeNewNoteArea() {
+  document.querySelector(".new-note-area").remove()
 }
 
 function createNoteAreaClick(event) {
   const id = event.target.id
   if (id === "cancel") {
-    document.querySelector(".new-note-area").remove()
+    removeNewNoteArea()
   } else if (id === "save") {
     saveNote(document.querySelector(".new-note-area > textarea").value)
   }
