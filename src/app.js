@@ -1,3 +1,4 @@
+'use strict'
 const notes = [
   { 
     title: "first note", 
@@ -9,6 +10,8 @@ const notes = [
 const newNoteButton = document.querySelector(".fa-solid.fa-circle-plus")
 const createNoteArea = document.querySelector(".create-note-area")
 const notesList = document.querySelector(".notes-list")
+const writeNoteArea = document.querySelector(".write-note-area")
+const readNoteArea = document.querySelector(".read-note-area")
 
 const newNoteArea = `
 <div class="new-note-area">
@@ -21,14 +24,14 @@ const newNoteArea = `
 `
 
 function addNewNote(event) {
-  if (document.querySelector(".new-note-area")) {
+  if (!canCreateNotesArea()) {
     return
   }
-  createNoteArea.insertAdjacentHTML("beforeend", newNoteArea)
+  writeNoteArea.insertAdjacentHTML("beforeend", newNoteArea)
 }
 
 function addNoteToSide(note) {
-  notesList.insertAdjacentHTML("beforeend", `<li>${note.title}</li>`)
+  notesList.insertAdjacentHTML("beforeend", `<li data-id="${note.id}" class="note-item">${note.title}</li>`)
 }
 
 function saveNote(textinput) {
@@ -38,30 +41,55 @@ function saveNote(textinput) {
 
   const noteObj = {
     title: title,
-    content: content,
+    noteBody: content,
     id: notes[notes.length -1].id + 1
   }
   notes.push(noteObj)
 
   addNoteToSide(noteObj)
-  removeNewNoteArea()
+  clearNotesArea()
 }
 
-function removeNewNoteArea() {
-  document.querySelector(".new-note-area").remove()
+function clearNotesArea() {
+  document.querySelector(".new-note-area")?.remove()
+  document.querySelector(".note-view")?.remove()
+}
+
+function canCreateNotesArea() {
+  return !(document.querySelector(".new-note-area") || document.querySelector(".note-view"))
 }
 
 function createNoteAreaClick(event) {
   const id = event.target.id
   if (id === "cancel") {
-    removeNewNoteArea()
+    clearNotesArea()
   } else if (id === "save") {
     saveNote(document.querySelector(".new-note-area > textarea").value)
   }
 }
 
+function clickNotesList(event) {
+  if (!canCreateNotesArea()) {
+    return
+  }
+
+  const id = event.target.dataset.id
+  const note = notes[id - 1]
+  if (note) {
+    const noteDisplay = `
+    <div class="note-view">
+      <h1>${note.title}</h1>
+      <p>${note.noteBody}</p>
+    </div>
+    `
+
+    readNoteArea.insertAdjacentHTML("beforeend", noteDisplay)
+  }
+}
+
+notesList.addEventListener("click", clickNotesList)
 newNoteButton.addEventListener("click", addNewNote)
-createNoteArea.addEventListener("click", createNoteAreaClick)
+writeNoteArea.addEventListener("click", createNoteAreaClick)
 
 // This is to insert the example note
 addNoteToSide(notes[0])
