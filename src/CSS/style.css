@@ -138,9 +138,10 @@ footer p {
 .new-note-area {
   display: flex;
   flex-direction: column;
+  gap: 5px;
 }
 
-.new-note-area > div {
+.new-note-area > div {  
   flex-direction: row;
 }
 
@@ -158,4 +159,15 @@ footer p {
 .write-note-area, .read-note-area {
   display: flex;
   justify-content: center;
+}
+
+button {
+  background-color: black;
+  color: white;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 2px 6px;
+  font-size: 12px;
+  font-weight: bold;
+  font-family: 'Quicksand', sans-serif;
 }
