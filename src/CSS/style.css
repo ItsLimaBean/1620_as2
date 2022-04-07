@@ -147,9 +147,15 @@ footer p {
 .note-view {
   display: flex;
   flex-direction: row;
-  gap: 10px
+  gap: 10px;
+  max-width: 70%;
 }
 
 .note-view > .icons i {
   font-size: 18px;
+}
+
+.write-note-area, .read-note-area {
+  display: flex;
+  justify-content: center;
 }

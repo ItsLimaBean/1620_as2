@@ -15,7 +15,7 @@ const readNoteArea = document.querySelector(".read-note-area")
 
 const newNoteArea = `
 <div class="new-note-area">
-  <textarea placeholder='Enter note'></textarea>
+  <textarea placeholder='Enter note' rows="8" cols="80"></textarea>
   <div>
     <button id="save">Save</button>
     <button id="cancel">Cancel</button>
