@@ -78,12 +78,16 @@ function clickNotesList(event) {
   if (note) {
     const noteDisplay = `
     <div class="note-view">
-      <h1>${note.title}</h1>
-      <p>${note.noteBody}</p>
+      <span class="icons"><i class="fa-solid fa-times-circle"></i></span>
+      <div>
+        <h1>${note.title}</h1>
+        <p>${note.noteBody}</p>
+      </div>
     </div>
     `
 
     readNoteArea.insertAdjacentHTML("beforeend", noteDisplay)
+    readNoteArea.querySelector(".fa-solid.fa-times-circle").addEventListener("click", clearNotesArea)
   }
 }
 
