@@ -1,21 +1,17 @@
 'use strict'
-const notes = [
-  { 
-    title: "first note", 
-    noteBody: "this is an example note",
-    id: 1 
-  }
-]
+const notes = []
 
 const newNoteButton = document.querySelector(".fa-solid.fa-circle-plus")
 const createNoteArea = document.querySelector(".create-note-area")
 const notesList = document.querySelector(".notes-list")
 const writeNoteArea = document.querySelector(".write-note-area")
 const readNoteArea = document.querySelector(".read-note-area")
+const mainContainer = document.querySelector(".main-container")
+const themeToggle = document.querySelector(".theme-toggle > input")
 
 const newNoteArea = `
 <div class="new-note-area">
-  <textarea placeholder='Enter note' rows="8" cols="80"></textarea>
+  <textarea placeholder="Enter note" rows="8" cols="80"></textarea>
   <div>
     <button id="save">Save</button>
     <button id="cancel">Cancel</button>
@@ -35,6 +31,9 @@ function addNoteToSide(note) {
 }
 
 function saveNote(textinput) {
+  if (textinput.length < 1) {
+    return
+  }
   const splitText = textinput.split("\n")
   const title = splitText[0]
   const content = splitText.splice(1).join("\n")
@@ -42,7 +41,7 @@ function saveNote(textinput) {
   const noteObj = {
     title: title,
     noteBody: content,
-    id: notes[notes.length -1].id + 1
+    id: notes.length + 1
   }
   notes.push(noteObj)
 
@@ -64,7 +63,8 @@ function createNoteAreaClick(event) {
   if (id === "cancel") {
     clearNotesArea()
   } else if (id === "save") {
-    saveNote(document.querySelector(".new-note-area > textarea").value)
+    const noteValue = document.querySelector(".new-note-area > textarea").value
+    saveNote(noteValue)
   }
 }
 
@@ -91,9 +91,11 @@ function clickNotesList(event) {
   }
 }
 
+function toggleDarkTheme() {
+  mainContainer.classList.toggle("dark-theme");
+}
+
 notesList.addEventListener("click", clickNotesList)
 newNoteButton.addEventListener("click", addNewNote)
 writeNoteArea.addEventListener("click", createNoteAreaClick)
-
-// This is to insert the example note
-addNoteToSide(notes[0])
+themeToggle.addEventListener("click", toggleDarkTheme)
