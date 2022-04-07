@@ -148,6 +148,7 @@ footer p {
 
 ul.notes-list > li {
   color: var(--text);
+  font-size: 1.4rem;
 }
 
 .new-note-area {
